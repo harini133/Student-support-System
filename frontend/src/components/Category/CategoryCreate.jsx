@@ -99,10 +99,11 @@ function CategoryCreate() {
             </select>
           </div>
 
-          <div>
+          <div className="form-actions">
 
             <button
               type="submit"
+              className="submit-btn"
               disabled={loading}
             >
               {loading ? "Adding..." : "Add Category"}
@@ -110,6 +111,7 @@ function CategoryCreate() {
 
             <button
               type="button"
+              className="cancel-btn"
               onClick={() => navigate("/categories")}
             >
               Cancel

@@ -3,6 +3,7 @@ import authReducer from "./authSlice";
 import ticketReducer from "./ticketSlice";
 import categoryReducer from "./categorySlice";
 import staffReducer from "./staffSlice";
+import dashboardReducer from "./dashboardSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     tickets: ticketReducer,
     categories: categoryReducer,
     staff: staffReducer,
+    dashboard: dashboardReducer,
   },
 });
 

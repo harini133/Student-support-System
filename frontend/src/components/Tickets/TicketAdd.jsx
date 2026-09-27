@@ -77,6 +77,7 @@ useEffect(() => {
             <p>Create a new student support request</p>
           </div>
           <button type="button" className="back-to-list-btn" onClick={() => navigate("/tickets")}>
+            <span className="back-to-list-icon" aria-hidden="true">←</span>
             Back to List
           </button>
         </div>

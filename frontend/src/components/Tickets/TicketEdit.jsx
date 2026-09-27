@@ -159,8 +159,9 @@ if (
       <div className="ticket-page">
         <h2>Ticket not found</h2>
 
-        <button onClick={() => navigate("/tickets")}>
-          Back to Tickets
+        <button className="back-to-list-btn" onClick={() => navigate("/tickets")}>
+          <span className="back-to-list-icon" aria-hidden="true">←</span>
+          Back to List
         </button>
       </div>
     );
@@ -182,15 +183,15 @@ if (
       <div className="ticket-form-container">
         <div className="ticket-form-heading">
           <div>
-            <h1 className="text-pink">Edit Ticket</h1>
-            <p className="text-light">Update student support ticket</p>
+            <h1>Edit Ticket</h1>
+            <p>Update student support ticket</p>
           </div>
           <button
   type="button"
   className="back-to-list-btn "
   onClick={() => navigate("/tickets")}
 >
-  <i className="bi bi-arrow-left"></i>
+  <span className="back-to-list-icon" aria-hidden="true">←</span>
   Back to List
 </button>
         </div>

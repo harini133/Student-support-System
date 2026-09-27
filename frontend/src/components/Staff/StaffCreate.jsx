@@ -112,9 +112,10 @@ function StaffCreate() {
             </select>
           </div>
 
-          <div>
+          <div className="form-actions">
             <button
               type="submit"
+              className="submit-btn"
               disabled={loading}
             >
               {loading ? "Adding..." : "Add Staff"}
@@ -122,6 +123,7 @@ function StaffCreate() {
 
             <button
               type="button"
+              className="cancel-btn"
               onClick={() => navigate("/staff")}
             >
               Cancel

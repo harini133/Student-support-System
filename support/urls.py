@@ -7,6 +7,7 @@ from .views import (
     TicketHistoryViewSet,
     LoginView,
     StaffViewSet,
+    DashboardSummaryView,
 )
 
 
@@ -20,6 +21,7 @@ router.register("staff", StaffViewSet)
 
 urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
+    path("dashboard/summary/", DashboardSummaryView.as_view(), name="dashboard-summary"),
 ]
 
 urlpatterns += router.urls

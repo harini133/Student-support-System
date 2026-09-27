@@ -126,10 +126,11 @@ function CategoryEdit() {
             </select>
           </div>
 
-          <div>
+          <div className="form-actions">
 
             <button
               type="submit"
+              className="submit-btn"
               disabled={loading}
             >
               {loading ? "Updating..." : "Update Category"}
@@ -137,6 +138,7 @@ function CategoryEdit() {
 
             <button
               type="button"
+              className="cancel-btn"
               onClick={() => navigate("/categories")}
             >
               Cancel

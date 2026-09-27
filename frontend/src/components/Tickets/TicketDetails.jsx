@@ -26,8 +26,9 @@ useEffect(() => {
       <div className="ticket-page">
         <h2>Ticket not found</h2>
 
-        <button onClick={() => navigate("/tickets")}>
-          Back to Tickets
+        <button className="back-to-list-btn" onClick={() => navigate("/tickets")}>
+          <span className="back-to-list-icon" aria-hidden="true">←</span>
+          Back to List
         </button>
       </div>
     );
@@ -45,9 +46,11 @@ useEffect(() => {
           </div>
 
           <button
+            className="back-to-list-btn"
             onClick={() => navigate("/tickets")}
           >
-            Back to Tickets
+            <span className="back-to-list-icon" aria-hidden="true">←</span>
+            Back to List
           </button>
         </div>
 

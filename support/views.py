@@ -2,7 +2,10 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.db.models import Q
+from django.db.models import Q, Count
+from django.db.models.functions import TruncMonth
+from django.utils import timezone
+from datetime import timedelta
 
 from .models import Category, Ticket, TicketHistory ,Staff
 from .serializers import (
@@ -125,6 +128,70 @@ class TicketHistoryViewSet(viewsets.ReadOnlyModelViewSet):
             queryset = queryset.filter(ticket_id=ticket_id)
 
         return queryset
+
+
+class DashboardSummaryView(APIView):
+    """Return ticket metrics and grouped data used by the dashboard."""
+
+    def get(self, request):
+        tickets = Ticket.objects.all()
+        status_counts = {
+            item["status"]: item["count"]
+            for item in tickets.values("status").annotate(count=Count("id"))
+        }
+        priority_counts = {
+            item["priority"]: item["count"]
+            for item in tickets.values("priority").annotate(count=Count("id"))
+        }
+
+        today = timezone.localdate()
+        month_start = today.replace(day=1)
+        month_starts = []
+        for months_ago in range(5, -1, -1):
+            month_index = month_start.year * 12 + month_start.month - 1 - months_ago
+            year, month_index = divmod(month_index, 12)
+            month_starts.append(today.replace(year=year, month=month_index + 1, day=1))
+
+        monthly_counts = {month: 0 for month in month_starts}
+        for item in tickets.annotate(month=TruncMonth("created_at")).values("month").annotate(count=Count("id")):
+            month = timezone.localtime(item["month"]).date()
+            if month in monthly_counts:
+                monthly_counts[month] += item["count"]
+
+        now = timezone.now()
+        overdue_count = tickets.filter(
+            Q(priority="Low", created_at__lt=now - timedelta(hours=72))
+            | Q(priority="Medium", created_at__lt=now - timedelta(hours=48))
+            | Q(priority="High", created_at__lt=now - timedelta(hours=24))
+            | Q(priority="Urgent", created_at__lt=now - timedelta(hours=12))
+            | Q(priority__in=["", None], created_at__lt=now - timedelta(hours=48))
+        )
+        overdue_count = overdue_count.count()
+
+        return Response({
+            "cards": {
+                "total": tickets.count(),
+                "open": status_counts.get("Open", 0),
+                "in_progress": status_counts.get("In Progress", 0),
+                "resolved": status_counts.get("Resolved", 0),
+                "pending": status_counts.get("Pending", 0),
+                "overdue": overdue_count,
+            },
+            "charts": {
+                "by_status": [
+                    {"label": label, "value": status_counts.get(label, 0)}
+                    for label, _ in Ticket.STATUS_CHOICES
+                ],
+                "by_priority": [
+                    {"label": label, "value": priority_counts.get(label, 0)}
+                    for label, _ in Ticket.PRIORITY_CHOICES
+                ],
+                "monthly_created": [
+                    {"label": month.strftime("%b %Y"), "value": monthly_counts[month]}
+                    for month in month_starts
+                ],
+            },
+        })
 
 
 class LoginView(APIView):
