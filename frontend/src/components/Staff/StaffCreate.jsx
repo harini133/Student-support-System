@@ -43,15 +43,17 @@ function StaffCreate() {
 
   return (
     <div className="ticket-page">
-
-      <div className="ticket-header">
+      <div className="ticket-form-container">
+        <div className="ticket-form-heading">
         <div>
           <h1>Add Staff</h1>
           <p>Add a new support staff member</p>
         </div>
-      </div>
-
-      <div className="ticket-form-container">
+          <button type="button" className="back-to-list-btn" onClick={() => navigate("/staff")}>
+            <span className="back-to-list-icon" aria-hidden="true">←</span>
+            Back to List
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit}>
 

@@ -44,15 +44,17 @@ function CategoryCreate() {
 
   return (
     <div className="ticket-page">
-
-      <div className="ticket-header">
+      <div className="ticket-form-container">
+        <div className="ticket-form-heading">
         <div>
           <h1>Add Category</h1>
           <p>Add a new support ticket category</p>
         </div>
-      </div>
-
-      <div className="ticket-form-container">
+          <button type="button" className="back-to-list-btn" onClick={() => navigate("/categories")}>
+            <span className="back-to-list-icon" aria-hidden="true">←</span>
+            Back to List
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit}>
 
