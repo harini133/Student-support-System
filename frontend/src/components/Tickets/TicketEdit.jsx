@@ -180,10 +180,15 @@ if (
   />
 )}
       <div className="ticket-form-container">
-
-        <h1>Edit Ticket</h1>
-
-        <p>Update student support ticket</p>
+        <div className="ticket-form-heading">
+          <div>
+            <h1>Edit Ticket</h1>
+            <p>Update student support ticket</p>
+          </div>
+          <button type="button" className="back-to-list-btn" onClick={() => navigate("/tickets")}>
+            Back to List
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit}>
 
@@ -338,9 +343,11 @@ if (
   </div>
 )}
 
-          <button type="submit">
-            Update Ticket
-          </button>
+          <div className="ticket-form-actions">
+            <button type="submit" className="create-ticket-btn">
+              Update
+            </button>
+          </div>
 
         </form>
 

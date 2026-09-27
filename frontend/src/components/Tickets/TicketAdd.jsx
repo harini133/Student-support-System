@@ -71,9 +71,15 @@ useEffect(() => {
   />
 )}
       <div className="ticket-form-container">
-
-        <h1>Create Ticket</h1>
-        <p>Create a new student support request</p>
+        <div className="ticket-form-heading">
+          <div>
+            <h1>Create Ticket</h1>
+            <p>Create a new student support request</p>
+          </div>
+          <button type="button" className="back-to-list-btn" onClick={() => navigate("/tickets")}>
+            Back to List
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit}>
 
@@ -136,9 +142,11 @@ useEffect(() => {
             </select>
           </div>
 
-          <button type="submit">
-            Create Ticket
-          </button>
+          <div className="ticket-form-actions">
+            <button type="submit" className="create-ticket-btn">
+              Create
+            </button>
+          </div>
 
         </form>
       </div>
