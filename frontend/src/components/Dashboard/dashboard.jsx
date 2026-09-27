@@ -52,8 +52,8 @@ function Dashboard() {
       <div className="dashboard-header">
 
   <div>
-    <h1>Dashboard</h1>
-    <p>Welcome to Student Support System</p>
+    <h1 className="text-pink">Dashboard</h1>
+    <p className="text-light">Welcome to Student Support System</p>
   </div>
 
   <div>
@@ -96,52 +96,7 @@ function Dashboard() {
 
       </div>
 
-      <div className="recent-tickets">
-
-        <h2>Recent Tickets</h2>
-
-        {tickets.length === 0 ? (
-          <p>No tickets found.</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {tickets.slice(0, 5).map((ticket) => (
-                <tr key={ticket.id}>
-                  <td>{ticket.id}</td>
-
-                  <td>{ticket.title}</td>
-
-                  <td>{ticket.priority}</td>
-
-                  <td>{ticket.status}</td>
-
-                  <td>
-                    <button
-                      className="view-btn"
-                      onClick={() =>
-                        navigate(`/tickets/${ticket.id}`)
-                      }
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-
-      </div>
+    
 
     </div>
   );
